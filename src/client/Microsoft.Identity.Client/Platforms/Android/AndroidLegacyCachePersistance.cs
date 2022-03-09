@@ -9,6 +9,7 @@ using Microsoft.Identity.Client.Core;
 
 namespace Microsoft.Identity.Client.Platforms.Android
 {
+    [Obsolete]
     [global::Android.Runtime.Preserve(AllMembers = true)]
     internal class AndroidLegacyCachePersistence : ILegacyCachePersistence
     {

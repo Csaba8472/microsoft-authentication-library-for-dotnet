@@ -3,7 +3,7 @@
 
 using System;
 
-#if DESKTOP || ANDROID || iOS || MAC || NET_CORE || NET5_WIN
+#if DESKTOP || ANDROID || __ANDROID__ || iOS || __IOS__ || MAC || NET_CORE || NET5_WIN
 using System.Security;
 using static System.Runtime.InteropServices.Marshal;
 #else
@@ -26,7 +26,7 @@ namespace Microsoft.Identity.Client.WsTrust
 
             var output = new char[secureString.Length];
 
-            IntPtr secureStringPtr = SecureStringToCoTaskMemUnicode(secureString);
+            IntPtr secureStringPtr = SecureStringMarshal.SecureStringToCoTaskMemUnicode(secureString);
             for (int i = 0; i < secureString.Length; i++)
             {
                 output[i] = (char)ReadInt16(secureStringPtr, i * 2);

@@ -26,7 +26,7 @@ namespace Microsoft.Identity.Client.Utils
         /// <param name="allowedExceptions">Allowed exceptions</param>
         /// <typeparam name="T">The result type.</typeparam>
         /// <returns>The <see cref="Task"/> producing the result.</returns>
-        public static async Task<T> ExecuteWithRetryAsync<T>(Func<Task<T>> func, int maxAttempts, TimeSpan? retryInterval = null, Action<int, Exception> onAttemptFailed = null, ISet<Type> allowedExceptions = null)
+        public static async Task<T> ExecuteWithRetryAsync<T>(Func<Task<T>> func, int maxAttempts, TimeSpan? retryInterval = null, System.Action<int, Exception> onAttemptFailed = null, ISet<Type> allowedExceptions = null)
         {
             if (func == null)
             {
@@ -79,7 +79,7 @@ namespace Microsoft.Identity.Client.Utils
         /// <param name="onAttemptFailed">The retry handler.</param>
         /// <param name="allowedExceptions"></param>
         /// <returns>The <see cref="Task"/> producing the result.</returns>
-        public static async Task ExecuteWithRetryAsync(Func<Task> func, int maxAttempts, TimeSpan? retryInterval = null, Action<int, Exception> onAttemptFailed = null, ISet<Type> allowedExceptions = null)
+        public static async Task ExecuteWithRetryAsync(Func<Task> func, int maxAttempts, TimeSpan? retryInterval = null, System.Action<int, Exception> onAttemptFailed = null, ISet<Type> allowedExceptions = null)
         {
             if (func == null)
             {

@@ -14,6 +14,10 @@ using Microsoft.Identity.Client.TelemetryCore.Internal.Events;
 using UIKit;
 #endif
 
+#if __IOS__
+using UIKit;
+#endif
+
 #if ANDROID
 using Android.App;
 #endif
@@ -62,7 +66,7 @@ namespace Microsoft.Identity.Client
             return this;
         }
 
-        internal AcquireTokenInteractiveParameterBuilder WithParentActivityOrWindowFunc(Func<object> parentActivityOrWindowFunc)
+        internal AcquireTokenInteractiveParameterBuilder WithParentActivityOrWindowFunc(System.Func<object> parentActivityOrWindowFunc)
         {
             if (parentActivityOrWindowFunc != null)
             {
@@ -215,6 +219,11 @@ namespace Microsoft.Identity.Client
             {
                 Parameters.UiParent.CallerViewController = uiViewController;
             }
+#elif __IOS__
+            if (parent is UIViewController uiViewController)
+            {
+                Parameters.UiParent.CallerViewController = uiViewController;
+            }
 #elif MAC
             if (parent is NSWindow nsWindow)
             {
@@ -258,6 +267,25 @@ namespace Microsoft.Identity.Client
 #endif
 
 #if iOS
+        /// <summary>
+        /// Sets a reference to the current ViewController that triggers the browser to be shown. 
+        /// </summary>
+        /// <param name="viewController">The current ViewController</param>
+        /// <returns>The builder to chain the .With methods</returns>
+        [CLSCompliant(false)]
+        public AcquireTokenInteractiveParameterBuilder WithParentActivityOrWindow(UIViewController viewController)
+        {
+            if (viewController == null)
+            {
+                throw new ArgumentNullException(nameof(viewController));
+            }
+
+            return WithParentObject((object)viewController);
+        }
+#endif
+
+
+#if __IOS__
         /// <summary>
         /// Sets a reference to the current ViewController that triggers the browser to be shown. 
         /// </summary>

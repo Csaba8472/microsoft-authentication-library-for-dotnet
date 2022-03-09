@@ -12,6 +12,10 @@ using Microsoft.Identity.Client.PlatformsCommon.Shared;
 using UIKit;
 #endif
 
+#if __IOS__
+using UIKit;
+#endif
+
 #if ANDROID
 using Android.App;
 #endif
@@ -121,6 +125,10 @@ namespace Microsoft.Identity.Client
 #if iOS
             Config.IosKeychainSecurityGroup = keychainSecurityGroup;
 #endif // iOS
+
+#if __IOS__
+            Config.IosKeychainSecurityGroup = keychainSecurityGroup;
+#endif // iOS
             return this;
         }
 
@@ -216,12 +224,12 @@ namespace Microsoft.Identity.Client
 #if !NETSTANDARD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)] // hide everywhere but NetStandard
 #endif
-        public PublicClientApplicationBuilder WithParentActivityOrWindow(Func<object> parentActivityOrWindowFunc)
+        public PublicClientApplicationBuilder WithParentActivityOrWindow(System.Func<object> parentActivityOrWindowFunc)
         {
             return WithParentFunc(parentActivityOrWindowFunc);
         }
 
-        private PublicClientApplicationBuilder WithParentFunc(Func<object> parentFunc)
+        private PublicClientApplicationBuilder WithParentFunc(System.Func<object> parentFunc)
         {
             Config.ParentActivityOrWindowFunc = parentFunc;
             return this;
@@ -235,7 +243,7 @@ namespace Microsoft.Identity.Client
         /// <param name="activityFunc">A function to return the current Activity</param>
         /// <returns>The builder to chain the .With methods</returns>
         [CLSCompliant(false)]
-        public PublicClientApplicationBuilder WithParentActivityOrWindow(Func<Activity> activityFunc)
+        public PublicClientApplicationBuilder WithParentActivityOrWindow(System.Func<Activity> activityFunc)
         {
             if (activityFunc == null)
             {
@@ -253,7 +261,26 @@ namespace Microsoft.Identity.Client
         /// <param name="viewControllerFunc">A function to return the current ViewController</param>
         /// <returns>The builder to chain the .With methods</returns>
         [CLSCompliant(false)]
-        public PublicClientApplicationBuilder WithParentActivityOrWindow(Func<UIViewController> viewControllerFunc)
+        public PublicClientApplicationBuilder WithParentActivityOrWindow(System.Func<UIViewController> viewControllerFunc)
+        {
+            if (viewControllerFunc == null)
+            {
+                throw new ArgumentNullException(nameof(viewControllerFunc));
+            }
+
+            return WithParentFunc(() => (object)viewControllerFunc());
+        }
+#endif
+
+
+#if __IOS__
+        /// <summary>
+        /// Sets a reference to the current ViewController that triggers the browser to be shown. 
+        /// </summary>
+        /// <param name="viewControllerFunc">A function to return the current ViewController</param>
+        /// <returns>The builder to chain the .With methods</returns>
+        [CLSCompliant(false)]
+        public PublicClientApplicationBuilder WithParentActivityOrWindow(System.Func<UIViewController> viewControllerFunc)
         {
             if (viewControllerFunc == null)
             {
@@ -272,7 +299,7 @@ namespace Microsoft.Identity.Client
         /// <param name="windowFunc">A function to return the current window</param>
         /// <returns>The builder to chain the .With methods</returns>
         [CLSCompliant(false)]
-        public PublicClientApplicationBuilder WithParentActivityOrWindow(Func<IWin32Window> windowFunc)
+        public PublicClientApplicationBuilder WithParentActivityOrWindow(System.Func<IWin32Window> windowFunc)
         {
             if (windowFunc == null)
             {
@@ -291,7 +318,7 @@ namespace Microsoft.Identity.Client
         /// <param name="windowFunc">A function to return the current window</param>
         /// <returns>The builder to chain the .With methods</returns>
         [CLSCompliant(false)]
-        public PublicClientApplicationBuilder WithParentActivityOrWindow(Func<IntPtr> windowFunc)
+        public PublicClientApplicationBuilder WithParentActivityOrWindow(System.Func<IntPtr> windowFunc)
         {
             if (windowFunc == null)
             {

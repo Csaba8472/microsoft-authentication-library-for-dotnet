@@ -83,6 +83,11 @@ namespace Microsoft.Identity.Client.Cache
         void SetiOSKeychainSecurityGroup(string keychainSecurityGroup);
 #endif
 
+
+#if __IOS__
+        void SetiOSKeychainSecurityGroup(string keychainSecurityGroup);
+#endif
+
         void Clear();
 
         /// <remarks>

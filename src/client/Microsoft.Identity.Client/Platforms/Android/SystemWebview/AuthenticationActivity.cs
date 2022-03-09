@@ -22,6 +22,7 @@ namespace Microsoft.Identity.Client.Platforms.Android.SystemWebview
 {
     /// <summary>
     /// </summary>
+    [Obsolete]
     [Activity(Name = "microsoft.identity.client.AuthenticationActivity")]
     [global::Android.Runtime.Preserve(AllMembers = true)]
     internal class AuthenticationActivity : Activity

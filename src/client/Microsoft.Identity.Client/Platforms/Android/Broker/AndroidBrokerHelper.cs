@@ -31,6 +31,7 @@ using System.Linq;
 
 namespace Microsoft.Identity.Client.Platforms.Android.Broker
 {
+    [Obsolete]
     [global::Android.Runtime.Preserve(AllMembers = true)]
     internal class AndroidBrokerHelper
     {

@@ -12,6 +12,7 @@ using Uri = System.Uri;
 
 namespace Microsoft.Identity.Client.Platforms.Android.SystemWebview
 {
+    [Obsolete]
     [global::Android.Runtime.Preserve(AllMembers = true)]
     internal class SystemWebUI : WebviewBase
     {

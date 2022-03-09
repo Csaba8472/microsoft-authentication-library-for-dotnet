@@ -36,7 +36,7 @@ namespace Microsoft.Identity.Json.Utilities
 {
     internal abstract class ReflectionDelegateFactory
     {
-        public Func<T, object> CreateGet<T>(MemberInfo memberInfo)
+        public Serialization.Func<T, object> CreateGet<T>(MemberInfo memberInfo)
         {
             if (memberInfo is PropertyInfo propertyInfo)
             {
@@ -59,7 +59,7 @@ namespace Microsoft.Identity.Json.Utilities
 #pragma warning restore CA2201 // Do not raise reserved exception types
         }
 
-        public Action<T, object> CreateSet<T>(MemberInfo memberInfo)
+        public Serialization.Action<T, object> CreateSet<T>(MemberInfo memberInfo)
         {
             if (memberInfo is PropertyInfo propertyInfo)
             {
@@ -78,10 +78,10 @@ namespace Microsoft.Identity.Json.Utilities
 
         public abstract MethodCall<T, object> CreateMethodCall<T>(MethodBase method);
         public abstract ObjectConstructor<object> CreateParameterizedConstructor(MethodBase method);
-        public abstract Func<T> CreateDefaultConstructor<T>(Type type);
-        public abstract Func<T, object> CreateGet<T>(PropertyInfo propertyInfo);
-        public abstract Func<T, object> CreateGet<T>(FieldInfo fieldInfo);
-        public abstract Action<T, object> CreateSet<T>(FieldInfo fieldInfo);
-        public abstract Action<T, object> CreateSet<T>(PropertyInfo propertyInfo);
+        public abstract Microsoft.Identity.Json.Serialization.Func<T> CreateDefaultConstructor<T>(Type type);
+        public abstract Serialization.Func<T, object> CreateGet<T>(PropertyInfo propertyInfo);
+        public abstract Serialization.Func<T, object> CreateGet<T>(FieldInfo fieldInfo);
+        public abstract Serialization.Action<T, object> CreateSet<T>(FieldInfo fieldInfo);
+        public abstract Serialization.Action<T, object> CreateSet<T>(PropertyInfo propertyInfo);
     }
 }

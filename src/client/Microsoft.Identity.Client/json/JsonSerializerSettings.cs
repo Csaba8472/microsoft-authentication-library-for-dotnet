@@ -245,7 +245,7 @@ namespace Microsoft.Identity.Json
             {
                 ReferenceResolverProvider = (value != null)
                     ? () => value
-                    : (Func<IReferenceResolver>)null;
+                    : (System.Func<IReferenceResolver>)null;
             }
         }
 
@@ -253,7 +253,7 @@ namespace Microsoft.Identity.Json
         /// Gets or sets a function that creates the <see cref="IReferenceResolver"/> used by the serializer when resolving references.
         /// </summary>
         /// <value>A function that creates the <see cref="IReferenceResolver"/> used by the serializer when resolving references.</value>
-        public Func<IReferenceResolver> ReferenceResolverProvider { get; set; }
+        public System.Func<IReferenceResolver> ReferenceResolverProvider { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ITraceWriter"/> used by the serializer when writing trace messages.

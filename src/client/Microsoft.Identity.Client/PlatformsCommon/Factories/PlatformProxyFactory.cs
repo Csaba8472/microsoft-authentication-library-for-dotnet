@@ -26,7 +26,11 @@ namespace Microsoft.Identity.Client.PlatformsCommon.Factories
             return new Microsoft.Identity.Client.Platforms.net5win.Net5WinPlatformProxy(finalLogger);
 #elif ANDROID
             return new Microsoft.Identity.Client.Platforms.Android.AndroidPlatformProxy(finalLogger);
+#elif __ANDROID__
+            return new Microsoft.Identity.Client.Platforms.Android.AndroidPlatformProxy(finalLogger);
 #elif iOS
+            return new Microsoft.Identity.Client.Platforms.iOS.iOSPlatformProxy(finalLogger);
+#elif __IOS__
             return new Microsoft.Identity.Client.Platforms.iOS.iOSPlatformProxy(finalLogger);
 #elif MAC
             return new Platforms.Mac.MacPlatformProxy(finalLogger);

@@ -27,7 +27,7 @@ namespace Microsoft.Identity.Client.Utils
 
         internal static bool ContainsOrdinalIgnoreCase(this IEnumerable<string> set, string toLookFor)
         {
-            return set.Any(el => el.Equals(toLookFor, System.StringComparison.OrdinalIgnoreCase));
+            return set.Any(el => el.Equals(toLookFor, StringComparison.OrdinalIgnoreCase));
         }
 
         internal static IReadOnlyList<T> FilterWithLogging<T>(

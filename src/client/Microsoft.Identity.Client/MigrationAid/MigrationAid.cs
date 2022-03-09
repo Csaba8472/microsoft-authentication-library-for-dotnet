@@ -15,7 +15,15 @@ using Microsoft.Identity.Client.TelemetryCore;
 using Microsoft.Identity.Client.Platforms.iOS;
 #endif
 
+#if __IOS__
+using Microsoft.Identity.Client.Platforms.iOS;
+#endif
+
 #if ANDROID
+using Android.App;
+#endif
+
+#if __ANDROID__
 using Android.App;
 #endif
 
@@ -689,7 +697,7 @@ namespace Microsoft.Identity.Client
         [EditorBrowsable(EditorBrowsableState.Never)]
         Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback);
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback);
 
         /// <summary>
         /// Acquires a security token on a device without a web browser, by letting the user authenticate on
@@ -715,7 +723,7 @@ namespace Microsoft.Identity.Client
         Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
             string extraQueryParameters,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback);
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback);
 
         /// <summary>
         /// Acquires a security token on a device without a web browser, by letting the user authenticate on
@@ -737,7 +745,7 @@ namespace Microsoft.Identity.Client
         [Obsolete("Use AcquireTokenWithDeviceCode instead. " + MsalErrorMessage.AkaMsmsalnet3BreakingChanges, true)]
         Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback,
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback,
             CancellationToken cancellationToken);
 
         /// <summary>
@@ -764,7 +772,7 @@ namespace Microsoft.Identity.Client
         Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
             string extraQueryParameters,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback,
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback,
             CancellationToken cancellationToken);
 
         /// <summary>
@@ -839,6 +847,28 @@ namespace Microsoft.Identity.Client
 #endif
 
 #if iOS
+        /// <summary>
+        /// Xamarin iOS specific property enabling the application to share the token cache with other applications sharing the same keychain security group.
+        /// If you use this property, you MUST add the capability to your Application Entitlement.
+        /// When using this property, the value must contain the TeamId prefix, which is why this is now obsolete.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [Obsolete("Use iOSKeychainSecurityGroup instead (See https://aka.ms/msal-net-ios-keychain-security-group)", true)]
+        public string KeychainSecurityGroup { get { throw new NotImplementedException(); } }
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [Obsolete("See https://aka.ms/msal-net-3-breaking-changes and https://aka.ms/msal-net-application-configuration", true)]
+        public string iOSKeychainSecurityGroup
+        {
+            get => throw new NotImplementedException("See https://aka.ms/msal-net-3-breaking-changes and https://aka.ms/msal-net-application-configuration");
+            set => throw new NotImplementedException("See https://aka.ms/msal-net-3-breaking-changes and https://aka.ms/msal-net-application-configuration");
+        }
+#endif
+
+#if __IOS__
         /// <summary>
         /// Xamarin iOS specific property enabling the application to share the token cache with other applications sharing the same keychain security group.
         /// If you use this property, you MUST add the capability to your Application Entitlement.
@@ -1232,7 +1262,7 @@ namespace Microsoft.Identity.Client
         [Obsolete("Use AcquireTokenWithDeviceCode instead. " + MsalErrorMessage.AkaMsmsalnet3BreakingChanges, true)]
         public Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback)
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback)
         {
             throw MigrationHelper.CreateMsalNet3BreakingChangesException();
         }
@@ -1260,7 +1290,7 @@ namespace Microsoft.Identity.Client
         public Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
             string extraQueryParameters,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback)
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback)
         {
             throw MigrationHelper.CreateMsalNet3BreakingChangesException();
         }
@@ -1285,7 +1315,7 @@ namespace Microsoft.Identity.Client
         [Obsolete("Use AcquireTokenWithDeviceCode instead. " + MsalErrorMessage.AkaMsmsalnet3BreakingChanges, true)]
         public Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback,
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback,
             CancellationToken cancellationToken)
         {
             throw MigrationHelper.CreateMsalNet3BreakingChangesException();
@@ -1315,7 +1345,7 @@ namespace Microsoft.Identity.Client
         public Task<AuthenticationResult> AcquireTokenWithDeviceCodeAsync(
             IEnumerable<string> scopes,
             string extraQueryParameters,
-            Func<DeviceCodeResult, Task> deviceCodeResultCallback,
+            System.Func<DeviceCodeResult, Task> deviceCodeResultCallback,
             CancellationToken cancellationToken)
         {
             throw MigrationHelper.CreateMsalNet3BreakingChangesException();
@@ -1425,6 +1455,31 @@ namespace Microsoft.Identity.Client
         [Obsolete("See https://aka.ms/msal-net-3-breaking-changes and https://aka.ms/msal-net-application-configuration", true)]
         string iOSKeychainSecurityGroup { get; set; }
 #endif
+
+#if __IOS__
+        /// <summary>
+        /// Xamarin iOS specific property enabling the application to share the token cache with other applications sharing the same keychain security group.
+        /// If you use this property, you MUST add the capability to your Application Entitlement.
+        /// When using this property, the value must contain the TeamId prefix, which is why this is now obsolete.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [Obsolete("Use iOSKeychainSecurityGroup instead (See https://aka.ms/msal-net-ios-keychain-security-group)", true)]
+        string KeychainSecurityGroup { get; }
+
+        /// <summary>
+        /// Xamarin iOS specific property enabling the application to share the token cache with other applications sharing the same keychain security group.
+        /// If you use this property, you MUST add the capability to your Application Entitlement.
+        /// In this property, the value should not contain the TeamId prefix, MSAL will resolve the TeamId at runtime.
+        /// For more details, please see https://aka.ms/msal-net-sharing-cache-on-ios
+        /// </summary>
+        /// <remarks>This API may change in future release.</remarks>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [Obsolete("See https://aka.ms/msal-net-3-breaking-changes and https://aka.ms/msal-net-application-configuration", true)]
+        string iOSKeychainSecurityGroup { get; set; }
+#endif
+
     }
 
 #if SUPPORTS_CONFIDENTIAL_CLIENT

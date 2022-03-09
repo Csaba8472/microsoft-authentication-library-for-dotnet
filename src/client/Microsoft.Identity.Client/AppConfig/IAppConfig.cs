@@ -127,7 +127,7 @@ namespace Microsoft.Identity.Client
 
         /// <summary>
         /// </summary>
-        Func<object> ParentActivityOrWindowFunc { get; }
+        System.Func<object> ParentActivityOrWindowFunc { get; }
 
 #if WINDOWS_APP
         /// <summary>
@@ -138,6 +138,12 @@ namespace Microsoft.Identity.Client
 #endif // WINDOWS_APP
 
 #if iOS
+        /// <summary>
+        /// </summary>
+        string IosKeychainSecurityGroup { get; }
+#endif // iOS
+
+#if __IOS__
         /// <summary>
         /// </summary>
         string IosKeychainSecurityGroup { get; }

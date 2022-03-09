@@ -17,6 +17,7 @@ namespace Microsoft.Identity.Client.Platforms.Android
     /// <summary>
     /// Platform / OS specific logic.  No library (ADAL / MSAL) specific code should go in here.
     /// </summary>
+    [System.Obsolete]
     [global::Android.Runtime.Preserve(AllMembers = true)]
     internal class AndroidPlatformProxy : AbstractPlatformProxy
     {

@@ -492,7 +492,7 @@ namespace Microsoft.Identity.Json.Serialization
                 createdType = t;
             }
 
-            Func<object, object> getExtensionDataDictionary = JsonTypeReflector.ReflectionDelegateFactory.CreateGet<object>(member);
+            Serialization.Func<object, object> getExtensionDataDictionary = JsonTypeReflector.ReflectionDelegateFactory.CreateGet<object>(member);
 
             if (extensionDataAttribute.ReadData)
             {
@@ -1379,6 +1379,7 @@ namespace Microsoft.Identity.Json.Serialization
             // warning - this method use to cause errors with Intellitrace. Retest in VS Ultimate after changes
             IValueProvider valueProvider;
             // UNITY flag based on https://github.com/jilleJr/Newtonsoft.Json-for-Unity
+            /*
 #if !(PORTABLE40 || PORTABLE || DOTNET || ANDROID || iOS || MAC || UNITY)
             if (DynamicCodeGeneration)
             {
@@ -1393,6 +1394,9 @@ namespace Microsoft.Identity.Json.Serialization
 #else
             valueProvider = new ReflectionValueProvider(member);
 #endif
+            */
+
+            valueProvider = new ReflectionValueProvider(member);
 
             return valueProvider;
         }

@@ -44,9 +44,9 @@ namespace Microsoft.Identity.Json.Utilities
         private readonly object _lock = new object();
         private Dictionary<TKey, TValue> _store;
 #endif
-        private readonly Func<TKey, TValue> _creator;
+        private readonly System.Func<TKey, TValue> _creator;
 
-        public ThreadSafeStore(Func<TKey, TValue> creator)
+        public ThreadSafeStore(System.Func<TKey, TValue> creator)
         {
             ValidationUtils.ArgumentNotNull(creator, nameof(creator));
 

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#if ANDROID
+#if ANDROID || __ANDROID__
 using System;
 using Android.App;
 #endif
-#if iOS
+#if iOS || __IOS__
 using UIKit;
 #endif
 #if MAC
@@ -45,7 +45,7 @@ namespace Microsoft.Identity.Client.UI
         public NSWindow CallerWindow { get; set; }
 #endif
 
-#if iOS
+#if iOS || __IOS__
         /// <summary>
         /// Initializes an instance for a provided caller window.
         /// </summary>
@@ -107,7 +107,7 @@ namespace Microsoft.Identity.Client.UI
         public UIViewControllerTransitioningDelegate TransitioningDelegate { get; set; }
 #endif
 
-#if ANDROID
+#if ANDROID || __ANDROID__
         internal Activity Activity { get; set; }
         /// <summary>
         /// Initializes an instance for a provided activity.

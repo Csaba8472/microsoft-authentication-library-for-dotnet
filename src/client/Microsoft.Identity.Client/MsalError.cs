@@ -934,7 +934,68 @@ namespace Microsoft.Identity.Client
         public const string BrokerKeyFetchFailed = "ios_broker_key_fetch_failed";
 #endif
 
-#if ANDROID
+#if __IOS__
+ /// <summary>
+        /// Xamarin.iOS specific. This error indicates that keychain access has not be enabled for the application.
+        /// From MSAL 2.x and ADAL 4.x, the keychain for the publisher needs to be accessed in order to provide
+        /// Single Sign On between applications of the same publisher.
+        /// <para>Mitigation</para> In order to access the keychain on iOS, you will need to ensure the Entitlements.plist
+        /// file is configured and included under &amp;lt;CodesignEntitlements&amp;gt;Entitlements.plist&amp;lt;/CodesignEntitlements&amp;gt;
+        /// in the csproj file of the iOS app.
+        /// <para>For more details</para> See https://aka.ms/msal-net-enable-keychain-access
+        /// </summary>
+        public const string CannotAccessPublisherKeyChain = "cannot_access_publisher_keychain";
+
+        /// <summary>
+        /// Xamarin.iOS specific. This error indicates that saving a token to the keychain failed.
+        /// <para>Mitigation</para> In order to access the keychain on iOS, you will need to set the
+        /// keychain access groups in the Entitlements.plist for the application.
+        /// <para>For more details</para> See https://aka.ms/msal-net-enable-keychain-groups
+        /// </summary>
+        public const string MissingEntitlements = "missing_entitlements";
+
+        /// <summary>
+        /// Xamarin.iOS + broker specific. This error indicates that the UIViewController is null.
+        /// <para>Mitigation</para> In order to access the broker, you will need to pass in a UIViewController.
+        /// <para>For more details</para> see https://aka.ms/msal-net-ios-broker
+        /// </summary>
+        public const string UIViewControllerRequiredForiOSBroker = "uiviewcontroller_required_for_ios_broker";
+
+        /// <summary>
+        /// Xamarin.iOS + broker specific. This error indicates that the writing of the application token from iOS broker
+        /// to the keychain threw an exception. No SecStatusCode was returned.
+        /// <para>Mitigation</para> Check the logs.
+        /// <para>For more details</para> see https://aka.ms/msal-net-ios-broker
+        /// </summary>
+        public const string WritingApplicationTokenToKeychainFailed = "writing_application_token_to_keychain_failed";
+
+        /// <summary>
+        /// Xamarin.iOS + broker specific. This error indicates that the reading of the application token from 
+        /// the keychain threw an exception. No SecStatusCode was returned.
+        /// <para>Mitigation</para> Check the logs.
+        /// <para>For more details</para> see https://aka.ms/msal-net-ios-broker
+        /// </summary>
+        public const string ReadingApplicationTokenFromKeychainFailed = "reading_application_token_from_keychain_failed";
+        
+        /// <summary>
+        /// A broker key was generated but it was not saved to the KeyChain. 
+        /// <para>Mitigation</para> Make sure the app has permissions to write to the keychain group 'com.microsoft.adalcache'.
+        /// Capture and inspect the logs to see why the save operation failed.
+        /// </summary>
+        public const string BrokerKeySaveFailed = "ios_broker_key_save_failed";
+
+        /// <summary>
+        /// A broker key was generated but it was not retrieved from the KeyChain. 
+        /// <para>Mitigation</para> Make sure the app has permissions to write to the keychain group 'com.microsoft.adalcache'.
+        /// Capture and inspect the logs to see why the fetch operation failed.
+        /// </summary>
+        public const string BrokerKeyFetchFailed = "ios_broker_key_fetch_failed";
+
+
+#endif
+
+
+#if ANDROID || __ANDROID__
         /// <summary>
         /// Xamarin.Android specific. This error indicates that a system browser was not installed on the user's device, and authentication
         /// using system browser could not be attempted because there was no available Android activity to handle the intent.

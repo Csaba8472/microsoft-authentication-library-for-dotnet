@@ -27,6 +27,7 @@ using Microsoft.Identity.Client.Instance.Discovery;
 
 namespace Microsoft.Identity.Client.Platforms.Android.Broker
 {
+    [Obsolete]
     [AndroidNative.Runtime.Preserve(AllMembers = true)]
     internal class AndroidAccountManagerBroker : IBroker
     {

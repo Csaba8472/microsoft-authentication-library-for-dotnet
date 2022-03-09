@@ -16,6 +16,7 @@ using Microsoft.Identity.Client.UI;
 namespace Microsoft.Identity.Client.Platforms.Android
 {
     [global::Android.Runtime.Preserve(AllMembers = true)]
+    [System.Obsolete]
     internal class AndroidWebUIFactory : IWebUIFactory
     {
         private const string ChromePackage = "com.android.chrome";

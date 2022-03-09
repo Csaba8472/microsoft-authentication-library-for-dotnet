@@ -23,6 +23,7 @@ using AndroidUri = Android.Net.Uri;
 
 namespace Microsoft.Identity.Client.Platforms.Android.Broker
 {
+    [Obsolete]
     [AndroidNative.Runtime.Preserve(AllMembers = true)]
     internal class AndroidContentProviderBroker : IBroker
     {

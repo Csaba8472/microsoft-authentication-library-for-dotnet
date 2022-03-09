@@ -90,6 +90,10 @@ namespace Microsoft.Identity.Client
             SetIosKeychainSecurityGroup(serviceBundle.Config.IosKeychainSecurityGroup);
 #endif // iOS
 
+#if __IOS__
+            SetIosKeychainSecurityGroup(serviceBundle.Config.IosKeychainSecurityGroup);
+#endif // iOS
+
             IsAppTokenCache = isApplicationTokenCache;
 
             // Must happen last, this code can access things like _accessor and such above.
@@ -116,8 +120,13 @@ namespace Microsoft.Identity.Client
             Accessor.SetiOSKeychainSecurityGroup(securityGroup);
             (LegacyCachePersistence as Microsoft.Identity.Client.Platforms.iOS.iOSLegacyCachePersistence).SetKeychainSecurityGroup(securityGroup);
 #endif
+
+#if __IOS__
+            Accessor.SetiOSKeychainSecurityGroup(securityGroup);
+            (LegacyCachePersistence as Microsoft.Identity.Client.Platforms.iOS.iOSLegacyCachePersistence).SetKeychainSecurityGroup(securityGroup);
+#endif
         }
-       
+
         private void UpdateAppMetadata(string clientId, string environment, string familyId)
         {
             if (_featureFlags.IsFociEnabled)

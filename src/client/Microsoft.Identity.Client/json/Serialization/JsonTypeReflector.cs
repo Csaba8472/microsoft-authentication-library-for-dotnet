@@ -58,8 +58,8 @@ namespace Microsoft.Identity.Json.Serialization
 
         public const string ConcurrentDictionaryTypeName = "System.Collections.Concurrent.ConcurrentDictionary`2";
 
-        private static readonly ThreadSafeStore<Type, Func<object[], object>> CreatorCache =
-            new ThreadSafeStore<Type, Func<object[], object>>(GetCreator);
+        private static readonly ThreadSafeStore<Type, System.Func<object[], object>> CreatorCache =
+            new ThreadSafeStore<Type, System.Func<object[], object>>(GetCreator);
 
 #if !(NET20 || DOTNET)
         private static readonly ThreadSafeStore<Type, Type> AssociatedMetadataTypesCache = new ThreadSafeStore<Type, Type>(GetAssociateMetadataTypeFromAttribute);
@@ -184,7 +184,7 @@ namespace Microsoft.Identity.Json.Serialization
 
             if (converterAttribute != null)
             {
-                Func<object[], object> creator = CreatorCache.Get(converterAttribute.ConverterType);
+                System.Func<object[], object> creator = CreatorCache.Get(converterAttribute.ConverterType);
                 if (creator != null)
                 {
                     return (JsonConverter)creator(converterAttribute.ConverterParameters);
@@ -202,13 +202,13 @@ namespace Microsoft.Identity.Json.Serialization
         /// If <c>null</c>, the default constructor is used.</param>
         public static JsonConverter CreateJsonConverterInstance(Type converterType, object[] args)
         {
-            Func<object[], object> converterCreator = CreatorCache.Get(converterType);
+            System.Func<object[], object> converterCreator = CreatorCache.Get(converterType);
             return (JsonConverter)converterCreator(args);
         }
 
         public static NamingStrategy CreateNamingStrategyInstance(Type namingStrategyType, object[] args)
         {
-            Func<object[], object> converterCreator = CreatorCache.Get(namingStrategyType);
+            System.Func<object[], object> converterCreator = CreatorCache.Get(namingStrategyType);
             return (NamingStrategy)converterCreator(args);
         }
 
@@ -227,7 +227,7 @@ namespace Microsoft.Identity.Json.Serialization
             return containerAttribute.NamingStrategyInstance;
         }
 
-        private static Func<object[], object> GetCreator(Type type)
+        private static System.Func<object[], object> GetCreator(Type type)
         {
             Func<object> defaultConstructor = ReflectionUtils.HasDefaultConstructor(type, false)
                 ? ReflectionDelegateFactory.CreateDefaultConstructor<object>(type)
@@ -515,6 +515,7 @@ namespace Microsoft.Identity.Json.Serialization
         {
             get
             {
+                /*
                 // UNITY flag based on https://github.com/jilleJr/Newtonsoft.Json-for-Unity
 #if !(PORTABLE40 || PORTABLE || DOTNET || ANDROID || iOS || MAC || UNITY)
                 if (DynamicCodeGeneration)
@@ -529,6 +530,9 @@ namespace Microsoft.Identity.Json.Serialization
 #else
                  return ExpressionReflectionDelegateFactory.Instance;
 #endif
+
+                */
+                return ExpressionReflectionDelegateFactory.Instance;
             }
         }
     }

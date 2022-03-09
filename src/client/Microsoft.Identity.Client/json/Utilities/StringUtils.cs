@@ -122,7 +122,7 @@ namespace Microsoft.Identity.Json.Utilities
             buffer[5] = MathUtils.IntToHex(c & '\x000f');
         }
 
-        public static TSource ForgivingCaseSensitiveFind<TSource>(this IEnumerable<TSource> source, Func<TSource, string> valueSelector, string testValue)
+        public static TSource ForgivingCaseSensitiveFind<TSource>(this IEnumerable<TSource> source, System.Func<TSource, string> valueSelector, string testValue)
         {
             if (source == null)
             {
