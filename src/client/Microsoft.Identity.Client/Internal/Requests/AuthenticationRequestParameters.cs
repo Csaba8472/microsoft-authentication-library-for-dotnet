@@ -153,7 +153,7 @@ namespace Microsoft.Identity.Client.Internal.Requests
         {
             get
             {
-#if ANDROID || iOS || WINDOWS_APP || MAC
+#if ANDROID || __ANDROID__ || iOS || WINDOWS_APP || MAC
                 return false;
 #else
                 return _serviceBundle.Config.ClientCredential != null;

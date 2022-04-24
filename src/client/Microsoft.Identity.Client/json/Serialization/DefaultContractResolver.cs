@@ -492,14 +492,14 @@ namespace Microsoft.Identity.Json.Serialization
                 createdType = t;
             }
 
-            Serialization.Func<object, object> getExtensionDataDictionary = JsonTypeReflector.ReflectionDelegateFactory.CreateGet<object>(member);
+            System.Func<object, object> getExtensionDataDictionary = JsonTypeReflector.ReflectionDelegateFactory.CreateGet<object>(member);
 
             if (extensionDataAttribute.ReadData)
             {
-                Action<object, object> setExtensionDataDictionary = ReflectionUtils.CanSetMemberValue(member, true, false)
+                System.Action<object, object> setExtensionDataDictionary = ReflectionUtils.CanSetMemberValue(member, true, false)
                  ? JsonTypeReflector.ReflectionDelegateFactory.CreateSet<object>(member)
                  : null;
-                Func<object> createExtensionDataDictionary = JsonTypeReflector.ReflectionDelegateFactory.CreateDefaultConstructor<object>(createdType);
+                System.Func<object> createExtensionDataDictionary = JsonTypeReflector.ReflectionDelegateFactory.CreateDefaultConstructor<object>(createdType);
                 MethodInfo setMethod = t.GetProperty("Item", BindingFlags.Public | BindingFlags.Instance, null, valueType, new[] { keyType }, null)?.GetSetMethod();
                 if (setMethod == null)
                 {
@@ -758,7 +758,7 @@ namespace Microsoft.Identity.Json.Serialization
             return JsonTypeReflector.GetJsonConverter(objectType);
         }
 
-        private Func<object> GetDefaultCreator(Type createdType)
+        private System.Func<object> GetDefaultCreator(Type createdType)
         {
             return JsonTypeReflector.ReflectionDelegateFactory.CreateDefaultConstructor<object>(createdType);
         }
@@ -1641,7 +1641,7 @@ namespace Microsoft.Identity.Json.Serialization
                 return;
             }
 
-            Func<object, object> specifiedPropertyGet = JsonTypeReflector.ReflectionDelegateFactory.CreateGet<object>(specifiedMember);
+            System.Func<object, object> specifiedPropertyGet = JsonTypeReflector.ReflectionDelegateFactory.CreateGet<object>(specifiedMember);
 
             property.GetIsSpecified = o => (bool)specifiedPropertyGet(o);
 

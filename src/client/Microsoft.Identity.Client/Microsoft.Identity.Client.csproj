@@ -1,8 +1,18 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
- <PropertyGroup>
-  <TargetFrameworks>net6.0;net6.0-android;net6.0-ios;</TargetFrameworks>
- </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
 
 <!--
   
@@ -38,7 +48,7 @@
 
   <PropertyGroup Label="NuGet and AssemblyInfo metadata">
     <!--This should be passed from the VSTS build-->
-    <MsalClientSemVer Condition="'$(MsalClientSemVer)' == ''">4.43.0</MsalClientSemVer>
+    <MsalClientSemVer Condition="'$(MsalClientSemVer)' == ''">4.51.3</MsalClientSemVer>
     <!--This will generate AssemblyVersion, AssemblyFileVersion and AssemblyInformationVersion-->
     <Version>$(MsalClientSemVer)</Version>
 
@@ -250,7 +260,7 @@
 
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Contains('-ios'))" >
+  <ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
     <Compile Include="$(PathToMsalSources)\Platforms\iOS\**\*.cs" />
     <Compile Include="$(PathToMsalSources)\Platforms\Features\Apple\**\*.cs" />
     <Compile Include="$(PathToMsalSources)\PlatformsCommon\PlatformNotSupported\ApiConfig\SystemWebViewOptions.cs" />
@@ -269,7 +279,7 @@
     <PackageReference Include="System.Security.SecureString" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Contains('-maccatalyst'))" >
+  <ItemGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
     <Compile Include="$(PathToMsalSources)\Platforms\iOS\**\*.cs" />
     <Compile Include="$(PathToMsalSources)\Platforms\Features\Apple\**\*.cs" />
     <Compile Include="$(PathToMsalSources)\PlatformsCommon\PlatformNotSupported\ApiConfig\SystemWebViewOptions.cs" />
@@ -322,7 +332,7 @@
     <Reference Include="Xamarin.Mac" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Contains('-android'))" >
+  <ItemGroup Condition="$(TargetFramework.Contains('-android'))">
     <Compile Include="$(PathToMsalSources)\Platforms\Android\**\*.cs" />
     <Compile Include="$(PathToMsalSources)\PlatformsCommon\PlatformNotSupported\ApiConfig\SystemWebViewOptions.cs" />
     <Reference Include="System" />
@@ -357,13 +367,17 @@
     <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.0.0" />
   </ItemGroup>
 
-   <ItemGroup Condition="$(TargetFramework.Contains('-android'))" >
+   <ItemGroup Condition="$(TargetFramework.Contains('-android'))">
     <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup Label="Build Tools" Condition="$([MSBuild]::IsOsPlatform('Windows'))">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.CodeAnalysis.RulesetToEditorconfigConverter" Version="3.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.RulesetToEditorconfigConverter" Version="3.3.3" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -372,6 +386,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Splash.resx</DependentUpon>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <PackageReference Include="Xamarin.Google.Guava.ListenableFuture">
+      <Version>1.0.0.7</Version>
+    </PackageReference>
   </ItemGroup>
 
 

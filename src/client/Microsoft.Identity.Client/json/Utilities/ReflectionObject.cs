@@ -40,8 +40,8 @@ namespace Microsoft.Identity.Json.Utilities
     internal class ReflectionMember
     {
         public Type MemberType { get; set; }
-        public Serialization.Func<object, object> Getter { get; set; }
-        public Serialization.Action<object, object> Setter { get; set; }
+        public System.Func<object, object> Getter { get; set; }
+        public System.Action<object, object> Setter { get; set; }
     }
 
     internal class ReflectionObject
@@ -57,13 +57,13 @@ namespace Microsoft.Identity.Json.Utilities
 
         public object GetValue(object target, string member)
         {
-            Serialization.Func<object, object> getter = Members[member].Getter;
+            System.Func<object, object> getter = Members[member].Getter;
             return getter(target);
         }
 
         public void SetValue(object target, string member, object value)
         {
-            Serialization.Action<object, object> setter = Members[member].Setter;
+            System.Action<object, object> setter = Members[member].Setter;
             setter(target, value);
         }
 
@@ -90,7 +90,7 @@ namespace Microsoft.Identity.Json.Utilities
             {
                 if (ReflectionUtils.HasDefaultConstructor(t, false))
                 {
-                    Serialization.Func<object> ctor = delegateFactory.CreateDefaultConstructor<object>(t);
+                    System.Func<object> ctor = delegateFactory.CreateDefaultConstructor<object>(t);
 
                     creatorConstructor = args => ctor();
                 }

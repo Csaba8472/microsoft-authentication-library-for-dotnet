@@ -11,21 +11,14 @@ using Microsoft.Identity.Client.PlatformsCommon.Factories;
 using Microsoft.Identity.Client.PlatformsCommon.Interfaces;
 using Microsoft.Identity.Client.TelemetryCore;
 
-#if iOS
+#if iOS || __IOS__
 using Microsoft.Identity.Client.Platforms.iOS;
 #endif
 
-#if __IOS__
-using Microsoft.Identity.Client.Platforms.iOS;
-#endif
-
-#if ANDROID
+#if ANDROID || __ANDROID__
 using Android.App;
 #endif
 
-#if __ANDROID__
-using Android.App;
-#endif
 
 namespace Microsoft.Identity.Client
 {
@@ -2262,7 +2255,7 @@ namespace Microsoft.Identity.Client
             throw new NotImplementedException(MsalErrorMessage.AkaMsmsalnet3BreakingChanges);
         }
 
-#if ANDROID
+#if ANDROID || __ANDROID__
         /// <summary>
         /// Initializes an instance for a provided activity.
         /// </summary>
@@ -2270,7 +2263,7 @@ namespace Microsoft.Identity.Client
         [CLSCompliant(false)]
         [Obsolete(MsalErrorMessage.AkaMsmsalnet3BreakingChanges, true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UIParent(Activity activity)
+        public UIParent(Android.App.Activity activity)
         {
             throw new NotImplementedException(MsalErrorMessage.AkaMsmsalnet3BreakingChanges);
         }
@@ -2282,7 +2275,7 @@ namespace Microsoft.Identity.Client
         [CLSCompliant(false)]
         [Obsolete(MsalErrorMessage.AkaMsmsalnet3BreakingChanges, true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UIParent(Activity activity, bool useEmbeddedWebview) : this(activity)
+        public UIParent(Android.App.Activity activity, bool useEmbeddedWebview) : this(activity)
         {
             throw new NotImplementedException(MsalErrorMessage.AkaMsmsalnet3BreakingChanges);
         }

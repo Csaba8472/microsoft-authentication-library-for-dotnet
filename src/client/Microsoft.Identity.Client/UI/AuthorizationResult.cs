@@ -139,7 +139,7 @@ namespace Microsoft.Identity.Client.UI
             if (status == AuthorizationStatus.UserCancel)
             {
                 result.Error = MsalError.AuthenticationCanceledError;
-#if ANDROID
+#if ANDROID || __ANDROID__
                 result.ErrorDescription = MsalErrorMessage.AuthenticationCanceledAndroid;
 #else
                 result.ErrorDescription = MsalErrorMessage.AuthenticationCanceled;

@@ -224,7 +224,7 @@ namespace Microsoft.Identity.Json.Serialization
         /// Gets or sets the default creator method used to create the object.
         /// </summary>
         /// <value>The default creator method used to create the object.</value>
-        public Func<object> DefaultCreator { get; set; }
+        public System.Func<object> DefaultCreator { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the default creator is non-public.

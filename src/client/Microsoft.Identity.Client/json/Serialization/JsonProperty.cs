@@ -261,7 +261,7 @@ namespace Microsoft.Identity.Json.Serialization
         /// Gets or sets an action used to set whether the property has been deserialized.
         /// </summary>
         /// <value>An action used to set whether the property has been deserialized.</value>
-        public Action<object, object> SetIsSpecified { get; set; }
+        public System.Action<object, object> SetIsSpecified { get; set; }
 
         /// <summary>
         /// Returns a <see cref="string"/> that represents this instance.

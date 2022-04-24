@@ -16,7 +16,7 @@ using UIKit;
 using UIKit;
 #endif
 
-#if ANDROID
+#if ANDROID || __ANDROID__
 using Android.App;
 #endif
 
@@ -235,7 +235,7 @@ namespace Microsoft.Identity.Client
             return this;
         }
 
-#if ANDROID
+#if ANDROID || __ANDROID__
         /// <summary>
         /// Sets a reference to the current Activity that triggers the browser to be shown. Required
         /// for MSAL to be able to show the browser when using Xamarin.Android
@@ -254,26 +254,7 @@ namespace Microsoft.Identity.Client
         }
 #endif
 
-#if iOS
-        /// <summary>
-        /// Sets a reference to the current ViewController that triggers the browser to be shown. 
-        /// </summary>
-        /// <param name="viewControllerFunc">A function to return the current ViewController</param>
-        /// <returns>The builder to chain the .With methods</returns>
-        [CLSCompliant(false)]
-        public PublicClientApplicationBuilder WithParentActivityOrWindow(System.Func<UIViewController> viewControllerFunc)
-        {
-            if (viewControllerFunc == null)
-            {
-                throw new ArgumentNullException(nameof(viewControllerFunc));
-            }
-
-            return WithParentFunc(() => (object)viewControllerFunc());
-        }
-#endif
-
-
-#if __IOS__
+#if iOS || __IOS__
         /// <summary>
         /// Sets a reference to the current ViewController that triggers the browser to be shown. 
         /// </summary>

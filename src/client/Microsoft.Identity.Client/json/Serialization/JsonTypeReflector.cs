@@ -229,7 +229,7 @@ namespace Microsoft.Identity.Json.Serialization
 
         private static System.Func<object[], object> GetCreator(Type type)
         {
-            Func<object> defaultConstructor = ReflectionUtils.HasDefaultConstructor(type, false)
+            System.Func<object> defaultConstructor = ReflectionUtils.HasDefaultConstructor(type, false)
                 ? ReflectionDelegateFactory.CreateDefaultConstructor<object>(type)
                 : null;
 

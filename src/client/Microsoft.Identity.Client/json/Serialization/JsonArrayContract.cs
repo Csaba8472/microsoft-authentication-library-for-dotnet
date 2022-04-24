@@ -61,7 +61,7 @@ namespace Microsoft.Identity.Json.Serialization
 
         private Type _genericWrapperType;
         private ObjectConstructor<object> _genericWrapperCreator;
-        private Func<object> _genericTemporaryCollectionCreator;
+        private System.Func<object> _genericTemporaryCollectionCreator;
 
         internal bool IsArray { get; }
         internal bool ShouldCreateWrapper { get; }

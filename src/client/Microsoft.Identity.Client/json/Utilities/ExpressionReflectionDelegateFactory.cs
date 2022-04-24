@@ -181,7 +181,7 @@ namespace Microsoft.Identity.Json.Utilities
             return callExpression;
         }
 
-        public override Serialization.Func<T> CreateDefaultConstructor<T>(Type type)
+        public override System.Func<T> CreateDefaultConstructor<T>(Type type)
         {
             ValidationUtils.ArgumentNotNull(type, "type");
 
@@ -201,7 +201,7 @@ namespace Microsoft.Identity.Json.Utilities
 
                 LambdaExpression lambdaExpression = Expression.Lambda(typeof(System.Func<T>), expression);
 
-                Serialization.Func<T> compiled = (Serialization.Func<T>)lambdaExpression.Compile();
+                System.Func<T> compiled = (System.Func<T>)lambdaExpression.Compile();
                 return compiled;
             }
             catch
@@ -212,7 +212,7 @@ namespace Microsoft.Identity.Json.Utilities
             }
         }
 
-        public override Serialization.Func<T, object> CreateGet<T>(PropertyInfo propertyInfo)
+        public override System.Func<T, object> CreateGet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
 
@@ -239,11 +239,11 @@ namespace Microsoft.Identity.Json.Utilities
 
             LambdaExpression lambdaExpression = Expression.Lambda(typeof(System.Func<T, object>), resultExpression, parameterExpression);
 
-            Serialization.Func<T, object> compiled = (Serialization.Func<T, object>)lambdaExpression.Compile();
+            System.Func<T, object> compiled = (System.Func<T, object>)lambdaExpression.Compile();
             return compiled;
         }
 
-        public override Serialization.Func<T, object> CreateGet<T>(FieldInfo fieldInfo)
+        public override System.Func<T, object> CreateGet<T>(FieldInfo fieldInfo)
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
 
@@ -263,11 +263,11 @@ namespace Microsoft.Identity.Json.Utilities
 
             fieldExpression = EnsureCastExpression(fieldExpression, typeof(object));
 
-            Serialization.Func<T, object> compiled = Expression.Lambda<Serialization.Func<T, object>>(fieldExpression, sourceParameter).Compile();
+            System.Func<T, object> compiled = Expression.Lambda<System.Func<T, object>>(fieldExpression, sourceParameter).Compile();
             return compiled;
         }
 
-        public override Serialization.Action<T, object> CreateSet<T>(FieldInfo fieldInfo)
+        public override System.Action<T, object> CreateSet<T>(FieldInfo fieldInfo)
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
 
@@ -299,11 +299,11 @@ namespace Microsoft.Identity.Json.Utilities
 
             LambdaExpression lambdaExpression = Expression.Lambda(typeof(System.Action<T, object>), assignExpression, sourceParameterExpression, valueParameterExpression);
 
-            Serialization.Action<T, object> compiled = (Serialization.Action<T, object>)lambdaExpression.Compile();
+            System.Action<T, object> compiled = (System.Action<T, object>)lambdaExpression.Compile();
             return compiled;
         }
 
-        public override Serialization.Action<T, object> CreateSet<T>(PropertyInfo propertyInfo)
+        public override System.Action<T, object> CreateSet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
 
@@ -338,7 +338,7 @@ namespace Microsoft.Identity.Json.Utilities
 
             LambdaExpression lambdaExpression = Expression.Lambda(typeof(System.Action<T, object>), setExpression, instanceParameter, valueParameter);
 
-            Serialization.Action<T, object> compiled = (Serialization.Action<T, object>)lambdaExpression.Compile();
+            System.Action<T, object> compiled = (System.Action<T, object>)lambdaExpression.Compile();
             return compiled;
         }
         

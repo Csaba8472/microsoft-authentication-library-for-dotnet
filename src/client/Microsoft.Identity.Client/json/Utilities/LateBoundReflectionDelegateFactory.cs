@@ -69,7 +69,7 @@ namespace Microsoft.Identity.Json.Utilities
             return (o, a) => method.Invoke(o, a);
         }
 
-        public override Serialization.Func<T> CreateDefaultConstructor<T>(Type type)
+        public override System.Func<T> CreateDefaultConstructor<T>(Type type)
         {
             ValidationUtils.ArgumentNotNull(type, nameof(type));
 
@@ -83,28 +83,28 @@ namespace Microsoft.Identity.Json.Utilities
             return () => (T)constructorInfo.Invoke(null);
         }
 
-        public override Serialization.Func<T, object> CreateGet<T>(PropertyInfo propertyInfo)
+        public override System.Func<T, object> CreateGet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
 
             return o => propertyInfo.GetValue(o, null);
         }
 
-        public override Serialization.Func<T, object> CreateGet<T>(FieldInfo fieldInfo)
+        public override System.Func<T, object> CreateGet<T>(FieldInfo fieldInfo)
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
 
             return o => fieldInfo.GetValue(o);
         }
 
-        public override Serialization.Action<T, object> CreateSet<T>(FieldInfo fieldInfo)
+        public override System.Action<T, object> CreateSet<T>(FieldInfo fieldInfo)
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
 
             return (o, v) => fieldInfo.SetValue(o, v);
         }
 
-        public override Serialization.Action<T, object> CreateSet<T>(PropertyInfo propertyInfo)
+        public override System.Action<T, object> CreateSet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
 

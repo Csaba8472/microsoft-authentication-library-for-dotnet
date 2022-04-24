@@ -10,15 +10,11 @@ using Microsoft.Identity.Client.ApiConfig.Parameters;
 using Microsoft.Identity.Client.Extensibility;
 using Microsoft.Identity.Client.TelemetryCore.Internal.Events;
 
-#if iOS
+#if iOS || __IOS__
 using UIKit;
 #endif
 
-#if __IOS__
-using UIKit;
-#endif
-
-#if ANDROID
+#if ANDROID || __ANDROID__
 using Android.App;
 #endif
 
@@ -214,6 +210,12 @@ namespace Microsoft.Identity.Client
                 Parameters.UiParent.Activity = activity;
                 Parameters.UiParent.CallerActivity = activity;
             }           
+#elif __ANDROID__
+            if (parent is Activity activity)
+            {
+                Parameters.UiParent.Activity = activity;
+                Parameters.UiParent.CallerActivity = activity;
+            }    
 #elif iOS
             if (parent is UIViewController uiViewController)
             {
@@ -359,13 +361,13 @@ namespace Microsoft.Identity.Client
         }
 #endif
 
-        #endregion
+#endregion
 
         /// <inheritdoc />
         protected override void Validate()
         {
             base.Validate();
-#if ANDROID
+#if ANDROID || __ANDROID__
             if (Parameters.UiParent.Activity == null)
             {
                 throw new InvalidOperationException(MsalErrorMessage.ActivityRequiredForParentObjectAndroid);

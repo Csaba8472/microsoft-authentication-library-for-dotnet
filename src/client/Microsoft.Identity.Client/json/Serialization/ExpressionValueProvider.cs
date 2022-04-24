@@ -44,8 +44,8 @@ namespace Microsoft.Identity.Json.Serialization
     internal class ExpressionValueProvider : IValueProvider
     {
         private readonly MemberInfo _memberInfo;
-        private Func<object, object> _getter;
-        private Action<object, object> _setter;
+        private System.Func<object, object> _getter;
+        private System.Action<object, object> _setter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionValueProvider"/> class.
