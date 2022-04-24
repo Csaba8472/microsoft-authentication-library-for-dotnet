@@ -152,7 +152,6 @@ namespace Microsoft.Identity.Client.Platforms.Android.SystemWebview
         /**
          * Cancels the auth request.
          */
-
         private void cancelRequest()
         {
             ReturnToCaller(AndroidConstants.Cancel, new Intent());
@@ -163,7 +162,6 @@ namespace Microsoft.Identity.Client.Platforms.Android.SystemWebview
          * @param resultCode The result code to return back.
          * @param data {@link Intent} contains the detailed result.
          */
-
         private void ReturnToCaller(int resultCode, Intent data)
         {
             data.PutExtra(AndroidConstants.RequestId, _requestId);
@@ -176,7 +174,6 @@ namespace Microsoft.Identity.Client.Platforms.Android.SystemWebview
          * @param errorCode The error code to send back.
          * @param errorDescription The error description to send back.
          */
-
         private void SendError(string errorCode, string errorDescription)
         {
             Intent errorIntent = new Intent();
